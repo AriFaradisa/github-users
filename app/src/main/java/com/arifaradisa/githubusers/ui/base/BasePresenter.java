@@ -1,14 +1,18 @@
 package com.arifaradisa.githubusers.ui.base;
 
+import com.arifaradisa.githubusers.api.RestService;
+
 import io.reactivex.disposables.CompositeDisposable;
 
 public class BasePresenter<T extends MvpView> implements Presenter<T> {
 
     private T mMvpView;
     private final CompositeDisposable mCompositeDisposable;
+    private final RestService mRestService;
 
-    public BasePresenter(CompositeDisposable mCompositeDisposable) {
+    public BasePresenter(CompositeDisposable mCompositeDisposable, RestService mRestService) {
         this.mCompositeDisposable = mCompositeDisposable;
+        this.mRestService = mRestService;
     }
 
     @Override
@@ -34,6 +38,9 @@ public class BasePresenter<T extends MvpView> implements Presenter<T> {
         return mCompositeDisposable;
     }
 
+    public RestService getRestService() {
+        return mRestService;
+    }
 
     public void checkViewAttached() {
         if (!isViewAttached()) throw new MvpViewNotAttachedException();
